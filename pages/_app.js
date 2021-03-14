@@ -5,7 +5,7 @@ import { TodosProvider } from '../context/TodosContext';
 function MyApp({ Component, pageProps }) {
   return (
     <TodosProvider>
-      <div className='container mx-auto my-6 max-w-xl'>
+      <div>
         <Component {...pageProps} />
       </div>
     </TodosProvider>

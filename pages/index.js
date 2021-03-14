@@ -20,9 +20,9 @@ export default function Home({ initialTodos, user }) {
         <title>auth0-todo</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main className='h-full overflow-y-hidden overflow-x-hidden'>
+      <main className='h-full overflow-y-hidden overflow-x-hidden container mx-auto max-w-xl'>
         <Background className>
-          <div className='mx-4'>
+          <div className='mx-4 '>
             <Navbar user={user} />
             {user && (
               <>
