@@ -1,9 +1,10 @@
 import Head from 'next/head';
 import Navbar from '../components/Navbar';
+import Todo from '../components/Todo';
 import { table, minifyRecords } from './api/utils/Airtable';
 
 export default function Home({ initialTodos }) {
-  console.log(initialTodos);
+  // console.log(initialTodos);
   return (
     <div>
       <Head>
@@ -14,6 +15,9 @@ export default function Home({ initialTodos }) {
       <main>
         <Navbar />
         <h1>auth0-todo</h1>
+        {initialTodos.map((todo) => (
+          <Todo key={todo.id} todo={todo} />
+        ))}
       </main>
     </div>
   );
