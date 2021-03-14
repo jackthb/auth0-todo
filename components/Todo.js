@@ -1,6 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { TodosContext } from '../context/TodosContext';
 export default function Todo({ todo }) {
+  const [viewDel, setViewDel] = useState(false);
   const { updateTodo, deleteTodo } = useContext(TodosContext);
   const handleToggleCompleted = () => {
     const updatedFields = { ...todo.fields, completed: !todo.fields.completed };
@@ -25,13 +26,52 @@ export default function Todo({ todo }) {
       >
         {todo.fields.description}
       </p>
-      <button
-        type='button'
-        className='text-sm bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded'
-        onClick={() => deleteTodo(todo.id)}
-      >
-        Delete
-      </button>
+      {viewDel ? (
+        <>
+          <button
+            type='button'
+            className='text-sm bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded'
+            onClick={() => deleteTodo(todo.id)}
+          >
+            Delete
+          </button>
+          <button
+            type='button'
+            className='h-7 w-7 ml-2'
+            onClick={() => setViewDel(!viewDel)}
+          >
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              viewBox='0 0 20 20'
+              fill='currentColor'
+            >
+              <path
+                fillRule='evenodd'
+                d='M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z'
+                clipRule='evenodd'
+              />
+            </svg>
+          </button>
+        </>
+      ) : (
+        <button
+          type='button'
+          className='h-7 w-7 '
+          onClick={() => setViewDel(!viewDel)}
+        >
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            viewBox='0 0 20 20'
+            fill='currentColor'
+          >
+            <path
+              fillRule='evenodd'
+              d='M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z'
+              clipRule='evenodd'
+            />
+          </svg>
+        </button>
+      )}
     </li>
   );
 }

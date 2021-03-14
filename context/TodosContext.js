@@ -5,6 +5,8 @@ const TodosContext = createContext();
 const TodosProvider = ({ children }) => {
   const [todos, setTodos] = useState([]);
 
+  const [newTodo, setNewTodo] = useState(false);
+
   const refreshTodos = async () => {
     try {
       const res = await fetch('/api/getTodos');
@@ -76,6 +78,8 @@ const TodosProvider = ({ children }) => {
       value={{
         todos,
         setTodos,
+        newTodo,
+        setNewTodo,
         refreshTodos,
         updateTodo,
         deleteTodo,
