@@ -1,9 +1,13 @@
 import { table } from './utils/Airtable';
+import { getSession, withApiAuthRequired } from '@auth0/nextjs-auth0';
 
-export default async (req, res) => {
+export default withApiAuthRequired(async (req, res) => {
   const { description } = req.body;
+  const { user } = await getSession(req, res);
   try {
-    const createdRecords = await table.create([{ fields: { description } }]);
+    const createdRecords = await table.create([
+      { fields: { description, userId: user.sub } },
+    ]);
     const createdRecord = {
       id: createdRecords[0].id,
       fields: createdRecords[0].fields,
@@ -14,4 +18,4 @@ export default async (req, res) => {
     res.statusCode = 500;
     res.json({ msg: 'something went wrong!' });
   }
-};
+});
