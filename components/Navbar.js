@@ -1,7 +1,7 @@
 export default function Navbar({ user }) {
   return (
     <nav className='flex justify-between py-4 items-center'>
-      <p className='text-2xl font-bold text-grey-800'>My To-dos</p>
+      <p className='text-2xl font-bold text-grey-800'>auth0-todo</p>
       <div className='flex'>
         {user && (
           <a
