@@ -5,30 +5,33 @@ const TodosContext = createContext();
 const TodosProvider = ({ children }) => {
   const [todos, setTodos] = useState([]);
 
-  const refreshTodo = async () => {
+  const refreshTodos = async () => {
     try {
       const res = await fetch('/api/getTodos');
       const latestTodos = await res.json();
       setTodos(latestTodos);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
   };
-  const addTodo = async (description) => {
+
+  const addTodo = async (todo) => {
     try {
       const res = await fetch('/api/createTodo', {
         method: 'POST',
-        body: JSON.stringify({ description }),
+        body: JSON.stringify({ description: todo }),
         headers: { 'Content-Type': 'application/json' },
       });
       const newTodo = await res.json();
       setTodos((prevTodos) => {
-        return [newTodo, ...prevTodos];
+        const updatedTodos = [newTodo, ...prevTodos];
+        return updatedTodos;
       });
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
   };
+
   const updateTodo = async (updatedTodo) => {
     try {
       await fetch('/api/updateTodo', {
@@ -51,27 +54,30 @@ const TodosProvider = ({ children }) => {
       console.error(err);
     }
   };
+
   const deleteTodo = async (id) => {
     try {
-      const res = await fetch('/api/deleteTodo', {
-        method: 'DELETE',
+      await fetch('/api/deleteTodo', {
+        method: 'Delete',
         body: JSON.stringify({ id }),
         headers: { 'Content-Type': 'application/json' },
       });
+
       setTodos((prevTodos) => {
-        return prevTodos.filter((todo) => todo.id != id);
+        return prevTodos.filter((todo) => todo.id !== id);
       });
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
   };
+
   return (
     <TodosContext.Provider
       value={{
         todos,
         setTodos,
+        refreshTodos,
         updateTodo,
-        refreshTodo,
         deleteTodo,
         addTodo,
       }}
