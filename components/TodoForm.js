@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { TodosContext } from '../context/TodosContext';
 
-export default function TodoForm() {
+export default function TodoForm({ children }) {
   const [todo, setTodo] = useState('');
   const { addTodo } = useContext(TodosContext);
   const handleSubmit = (e) => {
@@ -14,7 +14,7 @@ export default function TodoForm() {
       <form className='form my-6 ' onSubmit={handleSubmit}>
         <div className='flex flex-col text-sm mb-2'>
           <label className='font-bold mb-2 text-gray-800' htmlFor='todo'>
-            Todo
+            To-do:
           </label>
           <input
             type='text'
@@ -33,6 +33,7 @@ export default function TodoForm() {
           Submit
         </button>
       </form>
+      {children}
     </div>
   );
 }
