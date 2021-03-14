@@ -58,7 +58,7 @@ const TodosProvider = ({ children }) => {
   const deleteTodo = async (id) => {
     try {
       await fetch('/api/deleteTodo', {
-        method: 'Delete',
+        method: 'DELETE',
         body: JSON.stringify({ id }),
         headers: { 'Content-Type': 'application/json' },
       });

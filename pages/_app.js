@@ -1,10 +1,17 @@
 import '../styles/index.css';
 
+import { TodosProvider } from '../context/TodosContext';
+import { UserProvider } from '@auth0/nextjs-auth0';
+
 function MyApp({ Component, pageProps }) {
   return (
-    <div className='container mx-auto my-6 max-w-xl'>
-      <Component {...pageProps} />
-    </div>
+    <UserProvider>
+      <TodosProvider>
+        <div className='container mx-auto my-6 max-w-xl'>
+          <Component {...pageProps} />
+        </div>
+      </TodosProvider>
+    </UserProvider>
   );
 }
 
